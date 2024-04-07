@@ -87,5 +87,5 @@ f2 = Flatmates(name=name2, days_in_house=f2_days_in_house)
 print(f"{name1} Pays:", f1.pays(the_bill, flatmate2=f2))
 print(f"{name2} Pays:", f2.pays(the_bill, flatmate2=f1))
 
-pdf_report = PdfReport(filename="Report1.pdf")
+pdf_report = PdfReport(filename=f"{the_bill.period.replace(' ', '_')}_Report.pdf")
 pdf_report.generate(flatmate1=f1, flatmate2=f2, bill=the_bill)
