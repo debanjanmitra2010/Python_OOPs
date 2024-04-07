@@ -1,4 +1,5 @@
 import webbrowser
+
 from fpdf import FPDF
 
 
@@ -37,7 +38,6 @@ class PdfReport:
         self.filename = filename
 
     def generate(self, flatmate1, flatmate2, bill):
-
         flatmate1_pay = str(round(flatmate1.pays(bill, flatmate2), 2))
         flatmate2_pay = str(round(flatmate2.pays(bill, flatmate1), 2))
 
@@ -70,12 +70,22 @@ class PdfReport:
         webbrowser.open(self.filename)
 
 
-the_bill = Bill(amount=120, period="March 2024")
-john = Flatmates(name="John", days_in_house=20)
-mike = Flatmates(name="Mike", days_in_house=25)
+a = float(input("Hey user, enter the bill amount: "))
+p = input("Enter the bill period: ")
+name1 = input("Enter the Name of Flatmate1: ")
+name2 = input("Enter the Name of Flatmate2: ")
+f1_days_in_house = int(input(f"Enter the days {name1} stayed in the Flat: "))
+f2_days_in_house = int(input(f"Enter the days {name2} stayed in the Flat: "))
 
-print("John Pays:", john.pays(the_bill, flatmate2=mike))
-print("Mike Pays:", mike.pays(the_bill, flatmate2=john))
+
+the_bill = Bill(amount=float(a), period=p)
+
+# Two Flatmate objects
+f1 = Flatmates(name=name1, days_in_house=f1_days_in_house)
+f2 = Flatmates(name=name2, days_in_house=f2_days_in_house)
+
+print(f"{name1} Pays:", f1.pays(the_bill, flatmate2=f2))
+print(f"{name2} Pays:", f2.pays(the_bill, flatmate2=f1))
 
 pdf_report = PdfReport(filename="Report1.pdf")
-pdf_report.generate(flatmate1=john, flatmate2=mike, bill=the_bill)
+pdf_report.generate(flatmate1=f1, flatmate2=f2, bill=the_bill)
