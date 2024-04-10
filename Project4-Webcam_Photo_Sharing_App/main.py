@@ -19,12 +19,14 @@ class CameraScreen(Screen):
         self.ids.camera.play = True
         self.ids.camera_button.text = "Stop Camera"
         self.ids.camera.texture = self.ids.camera.texture
+        self.ids.camera.opacity = 1
 
     def stop(self):
         """Stops camera and changes Button text"""
         self.ids.camera.play = False
         self.ids.camera_button.text = "Start Camera"
         self.ids.camera.texture = None
+        self.ids.camera.opacity = 0
 
     def capture(self):
         """Creates a filename with the current time stamp and captures
@@ -37,6 +39,7 @@ class CameraScreen(Screen):
 
 
 class ImageScreen(Screen):
+    link_msg = "Create a Link First"
 
     def create_link(self):
         """ Accesses the photo filepath, uploads it to the web,
@@ -49,16 +52,18 @@ class ImageScreen(Screen):
         self.ids.link.text = "This function is disabled, since File Share isn't setup."
 
     def copy_link(self):
+        """Copy link to the clipboard available for pasting"""
         try:
             Clipboard.copy(self.filepath)
         except:
-            self.ids.link.text = "Create a Link First"
+            self.ids.link.text = self.link_msg
 
     def open_link(self):
+        """Open link using web browser"""
         try:
             webbrowser.open(self.filepath)
         except:
-            self.ids.link.text = "Create a Link First"
+            self.ids.link.text = self.link_msg
 
 
 class RootWidget(ScreenManager):
