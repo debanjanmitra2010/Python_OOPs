@@ -1,0 +1,6 @@
+The four Objects in this Project are:
+
+1) App
+2) Screen Manager
+3) Screen
+4) Widget(Button, TextInput, Image, etc)
